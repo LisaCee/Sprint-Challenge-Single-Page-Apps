@@ -4,7 +4,12 @@ import axios from 'axios';
 export default function CharacterList() {
   // TODO: Add useState to track data from useEffect
   const [characters, getCharacters] = useState([]);
-  
+  const listStyle = {
+    listStyleType: 'none',
+  }
+  const itemStyle = {
+    padding: 5 + 'px'
+  }
   useEffect(() => {
     
     // TODO: Add API Request here - must run in `useEffect`
@@ -12,12 +17,16 @@ export default function CharacterList() {
   axios.get(`https://rickandmortyapi.com/api/character/`) 
     .then(res => {getCharacters(res.data.results)})
     .catch(err => console.log(err))
+
   }, []);
   console.log(characters)
   return (
     <section className="character-list">
+      <ul style={listStyle}>
       {characters.map((character) => 
-        <li key={character.id}>{character.name}</li>)}
+        <li style={itemStyle} key={character.id}>{character.name}</li>
+        )}
+        </ul>
     </section>
   );
 }
